@@ -14,9 +14,13 @@
 #include<boost/serialization/map.hpp>
 #include<boost/archive/binary_oarchive.hpp>
 #include<boost/archive/binary_iarchive.hpp>
-
+#include<boost/filesystem.hpp>
+#include<set>
+namespace fs=boost::filesystem;
 class Blob{
 public:
+	Blob(){}
+
 	const std::map<int, std::string>& getContent() const {
 		return content;
 	}
@@ -25,34 +29,30 @@ public:
 		this->content = content;
 	}
 
-	const std::string& getFileName() const {
-		return fileName;
+	const std::string& getFilePath() const {
+		return filePath;
 	}
 
-	void setFileName(const std::string &fileName) {
-		this->fileName = fileName;
+	void setFilePath(const std::string &filePath) {
+		this->filePath = filePath;
 	}
-
-	virtual std::unordered_set<std::string> getFiles(std::unordered_set<std::string>&,const char*);
-
-//	std::ostream & operator << (std::ostream&,const Blob&);
 
 private:
-	std::string fileName;
+	std::string filePath;
 	std::map<int,std::string>content;
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive& ar,const unsigned){
-		ar & fileName;
+		ar & filePath;
 		ar & content;
 	}
 };
-std::ostream & operator <<(std::ostream& os,const Blob& blob){
-	os<<' '<<blob.getFileName();
-	for(auto i:blob.getContent())
-		os<<i.first<<i.second;
-	return os;
-}
 
+std::ostream & operator <<(std::ostream&,const Blob&);
+void getFiles(std::unordered_set<std::string>&,const char*);
+bool compare(const char*,const char*);
+void add(const std::string&);
+void stag(const std::string&,const std::string&);
+void getBlobs(std::unordered_set<std::string>&,const char*);
 
 #endif /* BLOB_HPP_ */
