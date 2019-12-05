@@ -20,14 +20,17 @@ int main() {
 //	cout<<full_path<<endl;
 //	for(fs::directory_entry& e:fs::recursive_directory_iterator(full_path))
 //		cout<<e.path().filename()<<endl;
+	fs::path p=full_path.string()+"/"+"files";
+//	for(fs::directory_entry& ent:fs::directory_iterator(p))
+//		cout<<ent.path().filename().string()<<endl;
 	cout<<"git add------->git commit------->git push"<<endl;
 	int choice;
 	cin>>choice;
 	switch(choice){
 		case 1:add(full_path.string());
 			break;
-//		case 2:commit();
-//			break;
+		case 2:commit(full_path.string());
+			break;
 //		case 3:push();
 //			break;
 		default:

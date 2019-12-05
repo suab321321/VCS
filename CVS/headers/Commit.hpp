@@ -40,7 +40,8 @@ private:
 		ar & parentCommit;
 	}
 };
-
+std::ostream & operator <<(std::ostream& os,const Commit&);
+void commit(const std::string&);
 
 
 #endif /* COMMIT_HPP_ */

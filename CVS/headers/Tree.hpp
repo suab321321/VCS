@@ -12,10 +12,10 @@
 #include<vector>
 #include<boost/archive/binary_oarchive.hpp>
 #include<boost/archive/binary_iarchive.hpp>
+#include<boost/serialization/vector.hpp>
 
 class Tree{
 public:
-
 	const std::vector<std::string>& getBlobs() const {
 		return blobs;
 	}
@@ -24,32 +24,39 @@ public:
 		this->blobs = blobs;
 	}
 
-	const std::string& getParentTree() const {
+	int getIsFirst() const {
+		return isFirst;
+	}
+
+	void setIsFirst(int isFirst) {
+		this->isFirst = isFirst;
+	}
+
+	const std::vector<std::string>& getParentTree() const {
 		return parentTree;
 	}
 
-	void setParentTree(const std::string &parentTree) {
+	void setParentTree(const std::vector<std::string> &parentTree) {
 		this->parentTree = parentTree;
 	}
 
 private:
 	std::vector<std::string>blobs;
-	std::string parentTree;
+	std::vector<std::string> parentTree;
+	int isFirst;
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive& ar,const unsigned){
 		ar & blobs;
 		ar & parentTree;
+		ar & isFirst;
 	}
 };
 
-std::ostream & operator <<(std::ostream& os,const Tree& tree){
-	os<<' '<<tree.getParentTree();
-	for(auto i:tree.getBlobs())
-		os<<i;
-	return os;
-}
-
+std::ostream & operator <<(std::ostream&,const Tree&);
+void commit(const std::string&);
+void moveFromDir(const std::string&,const std::string&,int&);
+void createTree(const std::string&);
 
 
 #endif /* TREE_HPP_ */

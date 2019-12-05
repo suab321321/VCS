@@ -37,14 +37,24 @@ public:
 		this->filePath = filePath;
 	}
 
+	int getIsDelete() const {
+		return isDelete;
+	}
+
+	void setIsDelete(int isDelete) {
+		this->isDelete = isDelete;
+	}
+
 private:
 	std::string filePath;
 	std::map<int,std::string>content;
+	int isDelete;
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive& ar,const unsigned){
 		ar & filePath;
 		ar & content;
+		ar & isDelete;
 	}
 };
 
@@ -55,5 +65,7 @@ void add(const std::string&);
 void getBlobs(std::unordered_set<std::string>&,const char*);
 void stagADD(const std::string&,const std::string&);
 void stagDELETE(const std::string&,const std::string&);
+void moveFromDir(const std::string&,const std::string&);
+
 
 #endif /* BLOB_HPP_ */

@@ -4,13 +4,19 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../source/Blob.cpp 
+../source/Blob.cpp \
+../source/Commit.cpp \
+../source/Tree.cpp 
 
 OBJS += \
-./source/Blob.o 
+./source/Blob.o \
+./source/Commit.o \
+./source/Tree.o 
 
 CPP_DEPS += \
-./source/Blob.d 
+./source/Blob.d \
+./source/Commit.d \
+./source/Tree.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
