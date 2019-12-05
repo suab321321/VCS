@@ -48,8 +48,10 @@ void add(const string& CWD){
 			stagDELETE(i,CWD);
 		}
 	}
-	if(!isChanged)
+	if(!isChanged){
+		cout<<"No changes were made"<<endl;
 		return;
+	}
 	const string blobIntermidiate=CWD+"/git/blob/intermidiate";
 	const string blobUnstagged=CWD+"/git/blob/unstagged";
 	//moving the files from unstagged dir to stagged dir
@@ -80,7 +82,6 @@ void getBlobs(unordered_set<string>& Blobs,const char* dir){
 				Blob b;
 				ios>>b;
 				if(!b.getIsDelete()){
-					cout<<"yes"<<b.getIsDelete()<<endl;
 					Blobs.insert(b.getFilePath());
 					file.close();
 				}
@@ -215,7 +216,6 @@ void moveFromDir(const string& toPath,const string& fromPath){
 	for(fs::directory_entry& ent:fs::directory_iterator(From)){
 		if(fs::is_regular_file(ent.path())){
 			fs::path intermediatePath=toPath+"/"+ent.path().filename().string();
-//				cout<<ent.path().string()<<endl;
 				try{
 					string to=toPath+"/"+ent.path().filename().string();
 					fs::path To1=to;
@@ -230,4 +230,3 @@ void moveFromDir(const string& toPath,const string& fromPath){
 		}
 	}
 }
-

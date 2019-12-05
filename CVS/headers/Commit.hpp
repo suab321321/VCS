@@ -11,17 +11,10 @@
 #include<iostream>
 #include<boost/archive/binary_oarchive.hpp>
 #include<boost/archive/binary_iarchive.hpp>
+#include<boost/filesystem.hpp>
 
 class Commit{
 public:
-	const std::string& getParentCommit() const {
-		return parentCommit;
-	}
-
-	void setParentCommit(const std::string &parentCommit) {
-		this->parentCommit = parentCommit;
-	}
-
 	const std::string& getTree() const {
 		return tree;
 	}
@@ -32,16 +25,15 @@ public:
 
 private:
 	std::string tree;
-	std::string parentCommit;
 	friend class::boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive& ar,const unsigned){
 		ar & tree;
-		ar & parentCommit;
 	}
 };
 std::ostream & operator <<(std::ostream& os,const Commit&);
-void commit(const std::string&);
-
+void push(const std::string&);
+bool move(const std::string&,const std::string&);
+void createCommit(const std::string&);
 
 #endif /* COMMIT_HPP_ */

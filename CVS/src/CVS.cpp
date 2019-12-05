@@ -31,8 +31,8 @@ int main() {
 			break;
 		case 2:commit(full_path.string());
 			break;
-//		case 3:push();
-//			break;
+		case 3:push(full_path.string());
+			break;
 		default:
 			cout<<"wrong choice"<<endl;
 	}
