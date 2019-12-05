@@ -6,6 +6,7 @@
 #include "../headers/Blob.hpp"
 #include "../headers/Tree.hpp"
 #include "../headers/Commit.hpp"
+#include "../headers/commitShow.hpp"
 #include <boost/filesystem.hpp>
 #include<fstream>
 #include<unordered_set>
@@ -32,6 +33,7 @@ int main() {
 		case 2:commit(full_path.string());
 			break;
 		case 3:push(full_path.string());
+				saveToVersion(full_path.string());
 			break;
 		default:
 			cout<<"wrong choice"<<endl;

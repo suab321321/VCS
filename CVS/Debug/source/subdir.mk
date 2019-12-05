@@ -6,17 +6,20 @@
 CPP_SRCS += \
 ../source/Blob.cpp \
 ../source/Commit.cpp \
-../source/Tree.cpp 
+../source/Tree.cpp \
+../source/commitShow.cpp 
 
 OBJS += \
 ./source/Blob.o \
 ./source/Commit.o \
-./source/Tree.o 
+./source/Tree.o \
+./source/commitShow.o 
 
 CPP_DEPS += \
 ./source/Blob.d \
 ./source/Commit.d \
-./source/Tree.d 
+./source/Tree.d \
+./source/commitShow.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

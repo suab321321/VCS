@@ -1,6 +1,5 @@
 
 #include "../headers/Commit.hpp"
-#include "../headers/Tree.hpp"
 #include<vector>
 #include<chrono>
 #include<ctime>
@@ -104,14 +103,14 @@ void createCommit(const string& CWD){
 	oos<<commit;
 	file.close();
 	//now removing all the unpushed and intermidiate and nstagged dir's files
-	fs::path p1=CWD+"/git/blob/intermidiate";
-	fs::remove_all(p1);
-	fs::create_directory(p1);
-	p1=CWD+"/git/blob/unstagged";
-	fs::remove_all(p1);
-	fs::create_directory(p1);
-	p1=CWD+"/git/tree/unpushed";
-	fs::remove_all(p1);
-	fs::create_directory(p1);
+//	fs::path p1=CWD+"/git/blob/intermidiate";
+//	fs::remove_all(p1);
+//	fs::create_directory(p1);
+//	p1=CWD+"/git/blob/unstagged";
+//	fs::remove_all(p1);
+//	fs::create_directory(p1);
+//	p1=CWD+"/git/tree/unpushed";
+//	fs::remove_all(p1);
+//	fs::create_directory(p1);
 }
 //ends

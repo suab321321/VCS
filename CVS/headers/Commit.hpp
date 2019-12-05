@@ -7,6 +7,8 @@
 
 #ifndef COMMIT_HPP_
 #define COMMIT_HPP_
+#include "../headers/Tree.hpp"
+
 
 #include<iostream>
 #include<boost/archive/binary_oarchive.hpp>
