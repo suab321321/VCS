@@ -34,7 +34,7 @@ private:
 	}
 };
 std::ostream & operator <<(std::ostream& os,const Commit&);
-void push(const std::string&);
+bool push(const std::string&);
 bool move(const std::string&,const std::string&);
 void createCommit(const std::string&);
 

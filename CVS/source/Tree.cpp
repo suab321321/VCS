@@ -27,15 +27,15 @@ void commit(const string& CWD){
 //creating the Tree Object
 void createTree(const string& CWD){
 	Tree tree;
-	fs::path intermidiateBlobPath=CWD+"/git/blob/intermidiate";
+	fs::path intermidiateBlobPath=CWD+"/.git/blob/intermidiate";
 	vector<string>blobs;
-	fs::path dest=CWD+"/git/blob/stagged";
+	fs::path dest=CWD+"/.git/blob/stagged";
 	fs::permissions(dest,fs::all_all);
 
 	//moving files from intermidiate to stagged directory
 	for(fs::directory_entry& ent:fs::recursive_directory_iterator(intermidiateBlobPath)){
 		if(fs::is_regular_file(ent.path())){
-			string staggedFilePath=CWD+"/git/blob/stagged/"+ent.path().filename().string();
+			string staggedFilePath=CWD+"/.git/blob/stagged/"+ent.path().filename().string();
 			if(!fs::exists(staggedFilePath)){
 				cout<<"Committed "<<staggedFilePath<<endl;
 				fs::copy_file(ent.path(),staggedFilePath);
@@ -49,14 +49,14 @@ void createTree(const string& CWD){
 	}
 	tree.setBlobs(blobs);
 	string parentTree="";
-	fs::path unpushedTreePath=CWD+"/git/tree/unpushed";
+	fs::path unpushedTreePath=CWD+"/.git/tree/unpushed";
 	if(fs::is_empty(unpushedTreePath)){
 		stringstream ss;
 		auto time=chrono::system_clock::to_time_t(chrono::system_clock::now());
 		auto t=ctime(&time);
 		ss<<hash<string>{}(t);
 		string hashed=ss.str();
-		string Filename=CWD+"/git/tree/unpushed/"+hashed;
+		string Filename=CWD+"/.git/tree/unpushed/"+hashed;
 		ofstream file(Filename.c_str());
 		boost::archive::binary_oarchive oos(file);
 		tree.setBlobs(blobs);
@@ -66,7 +66,7 @@ void createTree(const string& CWD){
 		return;
 	}
 	else{
-		fs::path p=CWD+"/git/tree/unpushed";
+		fs::path p=CWD+"/.git/tree/unpushed";
 		for(fs::directory_entry& ent:fs::recursive_directory_iterator(p)){
 			string path=ent.path().string();
 			ifstream file1(path.c_str());
@@ -80,7 +80,7 @@ void createTree(const string& CWD){
 				auto ti=ctime(&time);
 				ss<<hash<string>{}(ti);
 				string hashed=ss.str();
-				string Filename=CWD+"/git/tree/unpushed/"+hashed;
+				string Filename=CWD+"/.git/tree/unpushed/"+hashed;
 				ofstream file(Filename.c_str());
 				boost::archive::binary_oarchive oos(file);
 				tree.setBlobs(blobs);
@@ -99,4 +99,3 @@ void createTree(const string& CWD){
 	}
 	return;
 }
-

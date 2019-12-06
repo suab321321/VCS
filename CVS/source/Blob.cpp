@@ -25,7 +25,7 @@ void add(const string& CWD){
 	unordered_set<string>Files;
 	unordered_set<string>Blobs;
 	getFiles(Files,(CWD+"/files").c_str());
-	getBlobs(Blobs,(CWD+"/git/blob/unstagged").c_str());
+	getBlobs(Blobs,(CWD+"/.git/blob/unstagged").c_str());
 	cout<<Blobs.size()<<" "<<Files.size()<<endl;
 	int isChanged=0;
 	//files that were added or changed whose saved binary should also be altered is done here
@@ -35,7 +35,7 @@ void add(const string& CWD){
 			stagADD(i,CWD);
 		}
 		else{
-			if(!compare(i.c_str(),(CWD+"/git/blob/unstagged").c_str())){
+			if(!compare(i.c_str(),(CWD+"/.git/blob/unstagged").c_str())){
 				isChanged=1;
 				stagADD(i,CWD);
 			}
@@ -52,8 +52,8 @@ void add(const string& CWD){
 		cout<<"No changes were made"<<endl;
 		return;
 	}
-	const string blobIntermidiate=CWD+"/git/blob/intermidiate";
-	const string blobUnstagged=CWD+"/git/blob/unstagged";
+	const string blobIntermidiate=CWD+"/.git/blob/intermidiate";
+	const string blobUnstagged=CWD+"/.git/blob/unstagged";
 	//moving the files from unstagged dir to stagged dir
 	moveFromDir(blobIntermidiate,blobUnstagged);
 }
@@ -167,8 +167,8 @@ void stagADD(const string& filePath,const string& CWD){
 	ss<<h;
 	string hashPath=ss.str();
 	ss.clear();
-	fs::path p=CWD+"/git/blob/unstagged/"+hashPath;
-	ofstream file2((CWD+"/git/blob/unstagged/"+hashPath).c_str());
+	fs::path p=CWD+"/.git/blob/unstagged/"+hashPath;
+	ofstream file2((CWD+"/.git/blob/unstagged/"+hashPath).c_str());
 	boost::archive::binary_oarchive oos(file2);
 	oos<<b;
 	file2.close();
@@ -177,7 +177,7 @@ void stagADD(const string& filePath,const string& CWD){
 //deleting files whose path as given as paramter from unstagged dir
 void stagDELETE(const string& filePath,const string& CWD){
 	cout<<"deleted "<<filePath<<endl;
-	fs::path p=CWD+"/git/blob/unstagged";
+	fs::path p=CWD+"/.git/blob/unstagged";
 	for(fs::directory_entry& ent:fs::recursive_directory_iterator(p)){
 		ifstream file(ent.path().string());
 		boost::archive::binary_iarchive ois(file);
@@ -188,7 +188,7 @@ void stagDELETE(const string& filePath,const string& CWD){
 			break;
 		}
 	}
-	fs::path dirPath=CWD+"/git/blob/unstagged";
+	fs::path dirPath=CWD+"/.git/blob/unstagged";
 	Blob blob;
 	blob.setFilePath(filePath);
 	blob.setIsDelete(1);

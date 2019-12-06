@@ -15,25 +15,47 @@
 namespace fs=boost::filesystem;
 using namespace std;
 
+void init(const string& CWD){
+	fs::path gitDir=CWD+"/.git";
+	if(!fs::exists(gitDir)){
+		fs::path p1=gitDir;
+		fs::create_directories(p1.append("blob/unstagged"));
+		p1=gitDir;
+		fs::create_directories(p1.append("blob/intermidiate"));
+		p1=gitDir;
+		fs::create_directories(p1.append("blob/stagged"));
+		p1=gitDir;
+		fs::create_directories(p1.append("tree/pushed"));
+		p1=gitDir;
+		fs::create_directories(p1.append("tree/unpushed"));
+		p1=gitDir;
+		fs::create_directories(p1.append("commit/pushed"));
+	}
+	fs::path p2=CWD+"/files";
+	if(!fs::exists(p2))
+		fs::create_directory(p2);
+	p2=CWD+"/VERSIONS";
+	if(!fs::exists(p2))
+		fs::create_directory(p2);
+}
+
 int main() {
-//	const string path="/home/abhinav/cpp-2019-09/prgrames/CVS";
 	boost::filesystem::path full_path(boost::filesystem::current_path());
-//	cout<<full_path<<endl;
-//	for(fs::directory_entry& e:fs::recursive_directory_iterator(full_path))
-//		cout<<e.path().filename()<<endl;
 	fs::path p=full_path.string()+"/"+"files";
-//	for(fs::directory_entry& ent:fs::directory_iterator(p))
-//		cout<<ent.path().filename().string()<<endl;
-	cout<<"git add------->git commit------->git push"<<endl;
+	cout<<"git init------->git add------->git commit------->git push"<<endl;
 	int choice;
 	cin>>choice;
 	switch(choice){
+		case 0:init(full_path.string());
+			break;
 		case 1:add(full_path.string());
 			break;
 		case 2:commit(full_path.string());
 			break;
-		case 3:push(full_path.string());
+		case 3:if(push(full_path.string())){
 				saveToVersion(full_path.string());
+				cout<<"Successfully pushed"<<endl;
+			}
 			break;
 		default:
 			cout<<"wrong choice"<<endl;

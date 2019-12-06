@@ -25,15 +25,16 @@ string& getFilename(string& name){
 }
 
 //pushing the committed file
-void push(const string& CWD){
-	const string treePushedPath=CWD+"/git/tree/pushed";
-	const string treeUnpushedPath=CWD+"/git/tree/unpushed";
+bool push(const string& CWD){
+	const string treePushedPath=CWD+"/.git/tree/pushed";
+	const string treeUnpushedPath=CWD+"/.git/tree/unpushed";
 
 	if(!move(treeUnpushedPath,treePushedPath)){
 		cout<<"Nothing to push!"<<endl;
-		return;
+		return 0;
 	}
 	createCommit(CWD);
+	return 1;
 }
 
 //moving files from unpushed to pushed tree
@@ -79,7 +80,7 @@ bool move(const string& fromPath,const string& toPath){
 
 //creating commit object
 void createCommit(const string& CWD){
-	fs::path treePushedPath=CWD+"/git/tree/pushed";
+	fs::path treePushedPath=CWD+"/.git/tree/pushed";
 	string parentTree="";
 	for(fs::directory_entry& ent:fs::recursive_directory_iterator(treePushedPath)){
 		ifstream file(ent.path().string());
@@ -91,26 +92,16 @@ void createCommit(const string& CWD){
 			break;
 		}
 	}
-	fs::path p=CWD+"/git/commit/pushed";
+	fs::path p=CWD+"/.git/commit/pushed";
 	Commit commit;
 	commit.setTree(parentTree);
 	stringstream ss;
 	auto time=chrono::system_clock::to_time_t(chrono::system_clock::now());
 	ss<<ctime(&time);
 	string hashedPath=ss.str();
-	ofstream file(CWD+"/git/commit/pushed/"+hashedPath);
+	ofstream file(CWD+"/.git/commit/pushed/"+hashedPath);
 	boost::archive::binary_oarchive oos(file);
 	oos<<commit;
 	file.close();
-	//now removing all the unpushed and intermidiate and nstagged dir's files
-//	fs::path p1=CWD+"/git/blob/intermidiate";
-//	fs::remove_all(p1);
-//	fs::create_directory(p1);
-//	p1=CWD+"/git/blob/unstagged";
-//	fs::remove_all(p1);
-//	fs::create_directory(p1);
-//	p1=CWD+"/git/tree/unpushed";
-//	fs::remove_all(p1);
-//	fs::create_directory(p1);
 }
 //ends
