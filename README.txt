@@ -1,8 +1,15 @@
 This is local version control system you made by me.
 Only Compatible with Unix type filesystem.
 
-Due to large size of executable I did not upload it here,if anyone wants the
-executable, mail me with subject "VCS Binary" on singhabhinav0796@gmail.com
+Codebase is very messy due to my inexperience :)
+
+To generate the binary:
+1.clone it
+2.go inside the cloned local repo,and go inside /src folder
+3.open terminal in that directory and enter the command below
+
+ g++ -std=c++1z CVS.cpp ../source/Commit.cpp ../source/Blob.cpp ../source/Tree.cpp ../source/commitShow.cpp -lboost_serialization -lboost_filesystem -lboost_system
+
 
 Any issues is welcomed.
 
