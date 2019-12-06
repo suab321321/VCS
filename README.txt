@@ -1,4 +1,5 @@
 This is local VERSION CONTROL SYSTEM made by me in c++.
+Not full like git.This just tracks you have made anychanges in projects which is under /files dir and if changes are found they you can add-->commit-->push.This will make a /files in VERSIONS with time as folder name stores how your current project is in /files dir.
 
 Only Compatible with Unix type filesystem.
 
@@ -12,5 +13,10 @@ To generate the binary:
  g++ -std=c++1z CVS.cpp ../source/Commit.cpp ../source/Blob.cpp ../source/Tree.cpp ../source/commitShow.cpp -lboost_serialization -lboost_filesystem -lboost_system
 
 
-Any issues is welcomed.
+0-git init(compulsory to initialize .git dir only first time require)
+1-git add(changes are stagged to for commit in future)
+2-git commit(changes are ready to be pushed)
+3-git push(you successfully made a new version of your project in /VERSION dir)
+
+Please report any issues if found.
 
