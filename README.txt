@@ -1,4 +1,5 @@
-This is local version control system you made by me.
+This is local VERSION CONTROL SYSTEM made by me in c++.
+
 Only Compatible with Unix type filesystem.
 
 Codebase is very messy due to my inexperience :)
