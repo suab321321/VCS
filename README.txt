@@ -2,7 +2,7 @@ This is local VERSION CONTROL SYSTEM made by me in c++.
 
 Only Compatible with Unix type filesystem.
 
-Codebase is very messy due to my inexperience :)
+Codebase is very messy due to my inexperience :) if you want to contact regarding anything with project reach me on singhabhinav0796@gmail.com
 
 To generate the binary:
 1.clone it
