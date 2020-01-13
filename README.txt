@@ -1,4 +1,4 @@
-This is local VERSION CONTROL SYSTEM made by me in c++.
+This is local VERSION CONTROL SYSTEM made in c++.
 Not full like git.This just tracks you have made anychanges in projects which is under /files dir and if changes are found they you can add-->commit-->push.This will make a /files in VERSIONS with time as folder name stores how your current project is in /files dir.
 
 Only Compatible with Unix type filesystem.
